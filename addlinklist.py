@@ -16,30 +16,23 @@ class Solution(object):
         elif (l2 is None):
             return l1
         
-        newhead,carry,curr= None,0,ListNode(0)
+        newhead,carry,curr = None,0,ListNode(0)
         
-        while (l1 and l2):
-            sum = l1.val + l2.val + carry
+        while (l1 or l2):
+            sum = 0
+            if l1:
+                sum += l1.val
+                l1 = l1.next
+            if l2:
+                sum += l2.val
+                l2 = l2.next
+            sum += carry
             curr.next = ListNode(sum%10)
             carry = sum/10
-            l1,l2,curr = l1.next,l2.next,curr.next
+            curr = curr.next
             if (newhead is None):
                 newhead = curr
-        if l1:
-            while l1:
-                sum = l1.val + carry
-                curr.next = ListNode(sum%10)
-                carry = sum/10
-                l1,curr = l1.next,curr.next
-        if l2:
-            while l2:
-                sum = l2.val + carry
-                curr.next = ListNode(sum%10)
-                carry = sum/10
-                l2,curr = l2.next,curr.next
         if carry:
             curr.next = ListNode(carry)
          
         return newhead
-            
-            
